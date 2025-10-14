@@ -2,8 +2,12 @@
 {
     public class Order
     {
+        public Order() 
+        {
+            Items = new HashSet<OrderItem>();
+        }
         public int Id { get; set; }
-        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
         public decimal RequiredBinWidth { get; set; }
+        public ICollection<OrderItem> Items { get; set; }        
     }
 }
