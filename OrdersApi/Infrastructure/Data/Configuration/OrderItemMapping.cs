@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OrdersApi.Entities;
 
-namespace OrdersApi.Infrastructure.Configuration
+namespace OrdersApi.Infrastructure.Data.Configuration
 {
     public class OrderItemMapping : IEntityTypeConfiguration<OrderItem>
     {

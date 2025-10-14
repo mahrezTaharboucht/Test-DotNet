@@ -1,5 +1,5 @@
 ﻿using OrdersApi.Entities;
-namespace OrdersApi.Services.Itf
+namespace OrdersApi.Interfaces.Services
 {
     /// <summary>
     /// Bin width calculator.
