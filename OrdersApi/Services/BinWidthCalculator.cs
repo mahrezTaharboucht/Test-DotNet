@@ -1,5 +1,5 @@
 ﻿using OrdersApi.Entities;
-using OrdersApi.Services.Itf;
+using OrdersApi.Interfaces.Services;
 namespace OrdersApi.Services
 {
     /// <inheritdoc/>

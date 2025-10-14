@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using OrdersApi.Infrastructure;
+using OrdersApi.Entities;
+using OrdersApi.Infrastructure.Data;
+using OrdersApi.Infrastructure.Repositories;
+using OrdersApi.Interfaces.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,9 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("SqlLiteDbConnection");
 builder.Services.AddDbContext<OrdersApiDbContext>(options =>
     options.UseSqlite(connectionString));
+
+builder.Services.AddScoped<IRepository<Order>, OrdersRepository>();
+builder.Services.AddScoped<IRepository<ProductConfiguration>, ProductConfigurationRepository>();
 
 var app = builder.Build();
 

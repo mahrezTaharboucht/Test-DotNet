@@ -1,6 +1,6 @@
 ﻿using OrdersApi.Dtos;
 
-namespace OrdersApi.Services.Itf
+namespace OrdersApi.Interfaces.Services
 {
     public interface IOrderService
     {
