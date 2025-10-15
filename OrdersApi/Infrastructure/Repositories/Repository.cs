@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrdersApi.Infrastructure.Data;
 using OrdersApi.Interfaces.Repositories;
+using System.Linq.Expressions;
 
 namespace OrdersApi.Infrastructure.Repositories
 {
@@ -36,6 +37,19 @@ namespace OrdersApi.Infrastructure.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
             return await DbSet.FindAsync(id);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> Exists(int id)
+        {
+            var entity = await GetByIdAsync(id);
+            return entity != null;
+        }
+
+        /// <inheritdoc/>
+        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await DbSet.FirstOrDefaultAsync(predicate);
         }
 
         /// <inheritdoc/>
