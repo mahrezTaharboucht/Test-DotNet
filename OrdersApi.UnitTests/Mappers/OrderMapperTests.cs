@@ -10,7 +10,7 @@ namespace OrdersApi.UnitTests.Mappers
         private readonly IOrderMapper _mapper = new OrderMapper();
             
         [Fact]
-        public void ToOrderEntity_WithCreateOrderDto_ReturnsOrderEntity()
+        public void ToOrderEntity_WhenCreateOrderDtoIsProvided_ShouldReturnOrderEntity()
         {
             // Arrange
             const string productType = "Mug";
@@ -41,7 +41,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToOrderEntity_WithNullCreateOrderDto_ReturnsNull()
+        public void ToOrderEntity_WhenCreateOrderDtoIsNull_ShouldReturnNull()
         {
             // Act
             var order = _mapper.ToOrderEntity(null);
@@ -51,7 +51,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToOrderDetailResponseDto_WithOrder_ReturnsOrderDetailResponseDto()
+        public void ToOrderDetailResponseDto_WhenOrderIsValid_ShouldReturnOrderDetailResponseDto()
         {
             // Arrange
             const string productType = "Cards";
@@ -85,7 +85,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToOrderDetailResponseDto_WithNullOrder_ReturnsNull()
+        public void ToOrderDetailResponseDto_WhenOrderIsNull_ShouldReturnNull()
         {
             // Act
             var orderDto = _mapper.ToOrderDetailResponseDto(null);
@@ -95,7 +95,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToCreateOrderResponseDto_WithOrder_ReturnsCreateOrderResponseDto()
+        public void ToCreateOrderResponseDto_WhenOrderIsValid_ShouldReturnCreateOrderResponseDto()
         {
             // Arrange
             const decimal width = 11m;
@@ -112,7 +112,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToCreateOrderResponseDto_WithNullOrder_ReturnsNull()
+        public void ToCreateOrderResponseDto_WhenOrderIsNull_ShouldReturnNull()
         {
             // Act
             var orderDto = _mapper.ToCreateOrderResponseDto(null);

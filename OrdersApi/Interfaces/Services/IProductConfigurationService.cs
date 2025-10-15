@@ -1,4 +1,4 @@
-﻿using OrdersApi.Entities;
+﻿using OrdersApi.Dtos.ProductConfigurations;
 
 namespace OrdersApi.Interfaces.Services
 {
@@ -9,14 +9,12 @@ namespace OrdersApi.Interfaces.Services
     {
         /// <summary>
         /// Create a product configuration entity.
-        /// </summary>
-        /// <param name="productConfiguration">Entity.</param>
-        Task CreateProductConfiguration(ProductConfiguration productConfiguration);
+        /// </summary>       
+        Task CreateProductConfiguration(CreateProductConfigurationDto productConfiguration);
         
         /// <summary>
         /// Get product configurations.
-        /// </summary>
-        /// <returns>Product configuration list.</returns>
-        Task<IEnumerable<ProductConfiguration>> GetProductConfigurations();
+        /// </summary>       
+        Task<IEnumerable<ProductConfigurationDetailResponseDto>> GetProductConfigurations();
     }
 }

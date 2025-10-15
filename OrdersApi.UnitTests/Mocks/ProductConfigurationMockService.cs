@@ -1,13 +1,14 @@
-﻿using OrdersApi.Entities;
+﻿using OrdersApi.Dtos.ProductConfigurations;
+using OrdersApi.Entities;
 using OrdersApi.Interfaces.Services;
 
 namespace OrdersApi.UnitTests.Mocks
 {
     internal class ProductConfigurationMockService : IProductConfigurationService
     {
-        private readonly IEnumerable<ProductConfiguration> _productsConfig = new List<ProductConfiguration>()
+        private readonly IEnumerable<ProductConfigurationDetailResponseDto> _productsConfig = new List<ProductConfigurationDetailResponseDto>()
         {
-            new ProductConfiguration
+            new ProductConfigurationDetailResponseDto
             {
                 Id = 1,
                 ProductType = "photoBook", 
@@ -15,7 +16,7 @@ namespace OrdersApi.UnitTests.Mocks
                 NumberOfItemsInStack = 1,
             },
 
-            new ProductConfiguration
+            new ProductConfigurationDetailResponseDto
             {
                 Id = 2,
                 ProductType = "calendar",
@@ -23,7 +24,7 @@ namespace OrdersApi.UnitTests.Mocks
                 NumberOfItemsInStack = 1,
             },
 
-             new ProductConfiguration
+             new ProductConfigurationDetailResponseDto
             {
                 Id = 3,
                 ProductType = "canvas",
@@ -31,7 +32,7 @@ namespace OrdersApi.UnitTests.Mocks
                 NumberOfItemsInStack = 1,
             },
 
-              new ProductConfiguration
+              new ProductConfigurationDetailResponseDto
             {
                 Id = 4,
                 ProductType = "cards",
@@ -39,7 +40,7 @@ namespace OrdersApi.UnitTests.Mocks
                 NumberOfItemsInStack = 1,
             },
 
-               new ProductConfiguration
+               new ProductConfigurationDetailResponseDto
             {
                 Id = 5,
                 ProductType = "mug",
@@ -47,12 +48,13 @@ namespace OrdersApi.UnitTests.Mocks
                 NumberOfItemsInStack = 4,
             }
         };
-        public Task CreateProductConfiguration(ProductConfiguration productConfiguration)
+      
+        public Task CreateProductConfiguration(CreateProductConfigurationDto productConfiguration)
         {
             throw new NotImplementedException();
-        }
+        }               
 
-        public Task<IEnumerable<ProductConfiguration>> GetProductConfigurations()
+        Task<IEnumerable<ProductConfigurationDetailResponseDto>> IProductConfigurationService.GetProductConfigurations()
         {
             return Task.FromResult(_productsConfig);
         }

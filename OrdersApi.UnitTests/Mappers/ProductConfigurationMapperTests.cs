@@ -10,7 +10,7 @@ namespace OrdersApi.UnitTests.Mappers
         private readonly IProductConfigurationMapper _mapper = new ProductConfigurationMapper();
 
         [Fact]
-        public void ToProductConfiguration_WithCreateProductConfigurationDto_ReturnsProductConfigurationEntity()
+        public void ToProductConfiguration_WhenCreateProductConfigurationDtoIsValid_ShouldReturnProductConfigurationEntity()
         {
             // Arrange
             const string productType = "Photo";
@@ -35,7 +35,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToProductConfiguration_WithNullCreateProductConfigurationDto_ReturnsNull()
+        public void ToProductConfiguration_WithCreateProductConfigurationDtoIsNull_ShouldReturnNull()
         {
             // Act
             var productConf = _mapper.ToProductConfiguration(null);
@@ -45,7 +45,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToProductConfigurationDetailResponseDto_WithProductConfiguration_ReturnsProductConfigurationDetailResponseDto()
+        public void ToProductConfigurationDetailResponseDto_WhenProductConfigurationIsValid_ShouldReturnProductConfigurationDetailResponseDto()
         {
             // Arrange
             const string productType = "Mugs";
@@ -70,7 +70,7 @@ namespace OrdersApi.UnitTests.Mappers
         }
 
         [Fact]
-        public void ToProductConfigurationDetailResponseDto_WithNullProductConfiguration_ReturnsNull()
+        public void ToProductConfigurationDetailResponseDto_WhenProductConfigurationIsNull_ShouldReturnNull()
         {
             // Arrange
             const string productType = "Mugs";

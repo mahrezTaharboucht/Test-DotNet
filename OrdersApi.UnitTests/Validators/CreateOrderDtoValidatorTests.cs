@@ -24,7 +24,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithEmptyItemsList_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenItemsListIsEmpty_ShouldReturnValidationError()
         {
             // Arrange
             var expectedError = "Order items should contain at least one element.";
@@ -38,7 +38,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithInvalidItemProductType_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenItemProductTypeIsNotValid_ShouldReturnValidationError()
         {    
             // Arrange
             _mockProductConfigRepository
@@ -61,7 +61,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithValidCreateOrderDto_ReturnsNoValidationError()
+        public async Task TestValidateAsync_WhenCreateOrderDtoIsNotValid_ShouldNotReturnValidationError()
         {
             // Assert
             var model = new CreateOrderDto

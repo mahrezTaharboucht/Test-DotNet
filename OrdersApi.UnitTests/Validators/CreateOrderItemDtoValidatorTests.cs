@@ -23,7 +23,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithInvalidQuantity_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenQuantityIsNotValid_ShouldReturnValidationError()
         {
             // Arrange
             var expectedError = "Item quantity should be greater than 0.";
@@ -37,7 +37,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithInvalidItemProductType_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenItemProductTypeIsNotValid_ShouldReturnValidationError()
         {
             // Arrange
             var expectedError = "Unknown product type.";
@@ -54,7 +54,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithValidCreateOrderItemDto_ReturnsNoValidationError()
+        public async Task TestValidateAsync_WhenCreateOrderItemDtoIsValid_ShouldNotReturnValidationError()
         {
             // Arrange
             var model = new CreateOrderItemDto { Quantity = 5, ProductType = ProductType };

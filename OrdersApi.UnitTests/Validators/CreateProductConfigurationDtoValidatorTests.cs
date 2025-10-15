@@ -22,7 +22,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithProductTypeAlreadyExisting_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenProductTypeAlreadyExist_ShouldReturnValidationError()
         {
             // Arrange
             const string productType = "Mug";
@@ -46,7 +46,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithInvalidWidth_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenWidthIsNotValid_ShouldReturnValidationError()
         {
             // Arrange
             const string expectedError = "Width should be greater than 0.";
@@ -65,7 +65,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithInvalidNumberOfItemsInStack_ReturnsValidationError()
+        public async Task TestValidateAsync_WhenNumberOfItemsInStackIsNotValid_ShouldReturnValidationError()
         {
             // Arrange
             const string expectedError = "The number of items in stack should be greater than 0.";
@@ -84,7 +84,7 @@ namespace OrdersApi.UnitTests.Validators
         }
 
         [Fact]
-        public async Task TestValidateAsync_WithValidCreateProductConfigurationDto_ReturnsNoValidationError()
+        public async Task TestValidateAsync_WhenCreateProductConfigurationDtoIsValid_ShouldNotReturnValidationError()
         {
             // Arrange
             var model = new CreateProductConfigurationDto
