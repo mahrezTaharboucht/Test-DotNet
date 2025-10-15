@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OrdersApi.Entities;
+using OrdersApi.Filters;
 using OrdersApi.Infrastructure.Data;
 using OrdersApi.Infrastructure.Repositories;
 using OrdersApi.Interfaces.Repositories;
@@ -8,7 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+// Configure auto validation
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
