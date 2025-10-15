@@ -1,30 +1,28 @@
-using Microsoft.EntityFrameworkCore;
-using OrdersApi.Entities;
+using OrdersApi.Extensions;
 using OrdersApi.Filters;
-using OrdersApi.Infrastructure.Data;
-using OrdersApi.Infrastructure.Repositories;
-using OrdersApi.Interfaces.Repositories;
+using OrdersApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Configure auto validation
+// Configure auto validation filter and behaviour
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.ConfigureAutoValidationBehaviour();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("SqlLiteDbConnection");
-builder.Services.AddDbContext<OrdersApiDbContext>(options =>
-    options.UseSqlite(connectionString));
-
-builder.Services.AddScoped<IRepository<Order>, OrdersRepository>();
-builder.Services.AddScoped<IRepository<ProductConfiguration>, ProductConfigurationRepository>();
+builder.Services.ConfigureDatabase(builder.Configuration);
+builder.Services.AddMemoryCache();
+builder.Services.ConfigureMappers();
+builder.Services.ConfigureRepositories();
+builder.Services.ConfigureValidators();
+builder.Services.ConfigureBusinessServices();
 
 var app = builder.Build();
 
@@ -38,5 +36,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();
