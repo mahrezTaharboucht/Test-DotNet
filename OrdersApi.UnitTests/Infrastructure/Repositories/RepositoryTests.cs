@@ -6,7 +6,7 @@ namespace OrdersApi.UnitTests.Infrastructure.Repositories
     public class RepositoryTests
     {
         [Fact]
-        public async Task AddAsync_Order_Should_Succeed()
+        public async Task AddAsync_WhenCalled_ShouldSucceed()
         {
             // Arrange
             const int orderId = 1;
@@ -49,7 +49,7 @@ namespace OrdersApi.UnitTests.Infrastructure.Repositories
         }
 
         [Fact]
-        public async Task GetAllAsync_Should_Succeed()
+        public async Task GetAllAsync_WhenCalled_ShouldSucceed()
         {
             // Arrange
             const int expectedCount = 2;     

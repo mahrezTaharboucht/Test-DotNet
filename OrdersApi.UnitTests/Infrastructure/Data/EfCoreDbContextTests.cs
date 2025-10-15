@@ -4,7 +4,7 @@
     {
 
         [Fact]
-        public void Should_Create_Model_Successfully()
+        public void DbContext_WhenCalled_ShouldCreateModel()
         {
             // Arrange
             using var context = InfrastructureTestsHelper.GetDbContext();

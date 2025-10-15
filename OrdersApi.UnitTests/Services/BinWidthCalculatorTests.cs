@@ -21,7 +21,7 @@ namespace OrdersApi.UnitTests.Services
         }
 
         [Fact]
-        public void Ctor_WithNullConfigurationService_ThrowsArgumentNullException()
+        public void Ctor_WhenConfigurationServiceIsNull_ShouldThrowsArgumentNullException()
         {
             // Act
             static BinWidthCalculator act() => new(null);
@@ -31,7 +31,7 @@ namespace OrdersApi.UnitTests.Services
         }
 
         [Fact]
-        public async Task CalculateBinMinWidth_WithEachProductType_ReturnsCorrectWidth()
+        public async Task CalculateBinMinWidth_WhenOrderHasAnItemWithProductOfEachType_ShouldReturnCorrectWidth()
         {
             // Arrange
             var expectedWidth = 143.7m;
@@ -52,9 +52,9 @@ namespace OrdersApi.UnitTests.Services
 
         [Theory]
         [InlineData(1, "94")] // 1 mug
-        [InlineData(4, "94")] // 4 mug
+        [InlineData(4, "94")] // 4 mug : max stack size
         [InlineData(5, "188")] // 5 mug
-        public async Task CalculateBinMinWidth_WithDifferentMugsQuantites_ReturnsCorrectWidth(int mugsQuantity, string expectedWidthAsString)
+        public async Task CalculateBinMinWidth_WhenOrderItemsQuantityVariesAroundStackSize_ShouldReturnCorrectWidth(int mugsQuantity, string expectedWidthAsString)
         {
             // Arrange
             decimal expectedWidth = decimal.Parse(expectedWidthAsString, System.Globalization.CultureInfo.InvariantCulture);
@@ -70,7 +70,7 @@ namespace OrdersApi.UnitTests.Services
         }
 
         [Fact]
-        public async Task CalculateBinMinWidth_WithThreeCards_ReturnsCorrectWidth()
+        public async Task CalculateBinMinWidth_WhenOrderItemWidthHasDecimals_ShouldReturnCorrectWidth()
         {
             // Arrange
             var expectedWidth = 14.1m;
@@ -86,7 +86,7 @@ namespace OrdersApi.UnitTests.Services
         }
 
         [Fact]
-        public async Task CalculateBinMinWidth_WithEmptyItemsList_ReturnsDefaultWidth()
+        public async Task CalculateBinMinWidth_WhenOrderItemsListIsEmpty_ShouldReturnDefaultWidth()
         {
             // Arrange
             var expectedWidth = default(decimal);
@@ -100,7 +100,7 @@ namespace OrdersApi.UnitTests.Services
         }
 
         [Fact]
-        public async Task CalculateBinMinWidth_WithNullItemsList_ReturnsDefaultWidth()
+        public async Task CalculateBinMinWidth_WhenOrderItemsListIsNull_ShouldReturnDefaultWidth()
         {
             // Arrange
             var expectedWidth = default(decimal);
