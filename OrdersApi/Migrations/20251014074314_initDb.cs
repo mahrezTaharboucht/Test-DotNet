@@ -30,7 +30,8 @@ namespace OrdersApi.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ProductType = table.Column<string>(type: "TEXT", nullable: true),
+                    // Manually changed to nullable false.
+                    ProductType = table.Column<string>(type: "TEXT", nullable: false),
                     Width = table.Column<decimal>(type: "TEXT", nullable: false),
                     NumberOfItemsInStack = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -45,7 +46,8 @@ namespace OrdersApi.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ProductType = table.Column<string>(type: "TEXT", nullable: true),
+                    // Manually changed to nullable false.
+                    ProductType = table.Column<string>(type: "TEXT", nullable: false),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false)
                 },

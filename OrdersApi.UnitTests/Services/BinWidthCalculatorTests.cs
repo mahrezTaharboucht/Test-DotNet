@@ -1,5 +1,4 @@
 ﻿using OrdersApi.Dtos.Orders;
-using OrdersApi.Entities;
 using OrdersApi.Services;
 using OrdersApi.UnitTests.Mocks;
 
