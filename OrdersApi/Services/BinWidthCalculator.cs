@@ -1,4 +1,4 @@
-﻿using OrdersApi.Entities;
+﻿using OrdersApi.Dtos.Orders;
 using OrdersApi.Interfaces.Services;
 namespace OrdersApi.Services
 {
@@ -10,20 +10,14 @@ namespace OrdersApi.Services
         /// <summary>
         /// Ctor.
         /// </summary>
-        /// <param name="productConfigurationService">Product configuration service instance.</param>
-        /// <exception cref="ArgumentNullException">Thrown if configuration service is null.</exception>
         public BinWidthCalculator(IProductConfigurationService productConfigurationService) 
         {
-            if (productConfigurationService == null)
-            {
-                throw new ArgumentNullException(nameof(productConfigurationService));
-            }
-
+            ArgumentNullException.ThrowIfNull(productConfigurationService);           
             _productConfigurationService = productConfigurationService;
         }
 
         /// <inheritdoc/>
-        public async Task<decimal> CalculateBinMinWidth(List<OrderItem> items)
+        public async Task<decimal> CalculateBinMinWidth(List<CreateOrderItemDto> items)
         {
             if (items == null || items.Count == 0)
             {
@@ -41,8 +35,8 @@ namespace OrdersApi.Services
                     return new {
                         Type = g.Key,
                         Quantity = g.Sum(o => o.Quantity),
-                        Width = producConfig?.Width,
-                        NumberOfItemsInStack = producConfig?.NumberOfItemsInStack
+                        producConfig?.Width,
+                        producConfig?.NumberOfItemsInStack
                     };
 
                 }).ToList();
@@ -53,7 +47,7 @@ namespace OrdersApi.Services
                 // Ceil to the nearest integer 
                 var requiredStacks = (int)Math.Ceiling(requiredStacksAsDecimal);
 
-                width = width + (decimal)(requiredStacks * item.Width);
+                width += (decimal)(requiredStacks * item.Width);
             }
 
             return width;

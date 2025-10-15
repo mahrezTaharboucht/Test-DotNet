@@ -1,6 +1,6 @@
-﻿namespace OrdersApi.Dtos
+﻿namespace OrdersApi.Dtos.Orders
 {
-    public class OrderItem
+    public class CreateOrderItemDto
     {
         public string ProductType { get; set; }
         public int Quantity { get; set; }

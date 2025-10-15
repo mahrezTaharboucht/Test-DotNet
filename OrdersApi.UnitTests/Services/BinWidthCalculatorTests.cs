@@ -1,4 +1,5 @@
-﻿using OrdersApi.Entities;
+﻿using OrdersApi.Dtos.Orders;
+using OrdersApi.Entities;
 using OrdersApi.Services;
 using OrdersApi.UnitTests.Mocks;
 
@@ -12,7 +13,7 @@ namespace OrdersApi.UnitTests.Services
         private const string Canvas = "canvas";
         private const string Cards = "cards";
 
-        private readonly ProductConfigurationMockService _productConfigurationMockService = new ProductConfigurationMockService();
+        private readonly ProductConfigurationMockService _productConfigurationMockService = new();
         private readonly BinWidthCalculator _calculator;
 
         public BinWidthCalculatorTests()
@@ -22,9 +23,9 @@ namespace OrdersApi.UnitTests.Services
 
         [Fact]
         public void Ctor_WithNullConfigurationService_ThrowsArgumentNullException()
-        {   
+        {
             // Act
-            var act = () => new BinWidthCalculator(null);
+            static BinWidthCalculator act() => new(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(() => act());
@@ -35,12 +36,12 @@ namespace OrdersApi.UnitTests.Services
         {
             // Arrange
             var expectedWidth = 143.7m;
-            var orderItems = new List<OrderItem>() {
-                new OrderItem { Id = 1, ProductType = PhotoBook, Quantity = 1 },
-                new OrderItem { Id = 2, ProductType = Calendar, Quantity = 1 },
-                new OrderItem { Id = 3, ProductType = Mug, Quantity = 1 },
-                new OrderItem { Id = 3, ProductType = Canvas, Quantity = 1 },
-                new OrderItem { Id = 3, ProductType = Cards, Quantity = 1 }
+            var orderItems = new List<CreateOrderItemDto>() {
+                new() { ProductType = PhotoBook, Quantity = 1 },
+                new() { ProductType = Calendar, Quantity = 1 },
+                new() { ProductType = Mug, Quantity = 1 },
+                new() { ProductType = Canvas, Quantity = 1 },
+                new() { ProductType = Cards, Quantity = 1 }
             };
 
             // Act
@@ -58,8 +59,8 @@ namespace OrdersApi.UnitTests.Services
         {
             // Arrange
             decimal expectedWidth = decimal.Parse(expectedWidthAsString, System.Globalization.CultureInfo.InvariantCulture);
-            var orderItems = new List<OrderItem>() {
-                new OrderItem { Id = 3, ProductType = Mug, Quantity = mugsQuantity }
+            var orderItems = new List<CreateOrderItemDto>() {
+                new() { ProductType = Mug, Quantity = mugsQuantity }
             };
 
             // Act
@@ -74,8 +75,8 @@ namespace OrdersApi.UnitTests.Services
         {
             // Arrange
             var expectedWidth = 14.1m;
-            var orderItems = new List<OrderItem>() {
-                new OrderItem { Id = 3, ProductType = Cards, Quantity = 3 }
+            var orderItems = new List<CreateOrderItemDto>() {
+                new() { ProductType = Cards, Quantity = 3 }
             };
 
             // Act
@@ -90,7 +91,7 @@ namespace OrdersApi.UnitTests.Services
         {
             // Arrange
             var expectedWidth = default(decimal);
-            var orderItems = new List<OrderItem>();
+            var orderItems = new List<CreateOrderItemDto>();
 
             // Act
             var minWidth = await _calculator.CalculateBinMinWidth(orderItems);

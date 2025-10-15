@@ -1,4 +1,4 @@
-﻿using OrdersApi.Entities;
+﻿using OrdersApi.Dtos.Orders;
 namespace OrdersApi.Interfaces.Services
 {
     /// <summary>
@@ -8,9 +8,7 @@ namespace OrdersApi.Interfaces.Services
     {
         /// <summary>
         /// Calculate the minimum required bin width for a given order items list. 
-        /// </summary>
-        /// <param name="items">Order items.</param>
-        /// <returns>Minimum width.</returns>
-        public Task<decimal> CalculateBinMinWidth(List<OrderItem> items);
+        /// </summary>        
+        public Task<decimal> CalculateBinMinWidth(List<CreateOrderItemDto> items);
     }
 }

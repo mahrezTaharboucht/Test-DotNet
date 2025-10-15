@@ -1,10 +1,10 @@
-﻿using OrdersApi.Dtos;
+﻿using OrdersApi.Dtos.Orders;
 
 namespace OrdersApi.Interfaces.Services
 {
     public interface IOrderService
     {
-        Task<OrderResponseDto> CreateOrder(CreateOrderDto dto);
-        Task<OrderResponseDto> GetOrder(int orderId);
+        Task<OrderDetailResponseDto> CreateOrder(CreateOrderDto dto);
+        Task<OrderDetailResponseDto> GetOrder(int orderId);
     }
 }
