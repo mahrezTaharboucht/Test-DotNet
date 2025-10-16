@@ -1,8 +1,6 @@
-using OrdersApi.Entities;
 using OrdersApi.Extensions;
 using OrdersApi.Filters;
 using OrdersApi.Helpers;
-using OrdersApi.Infrastructure.Data;
 using OrdersApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +40,8 @@ app.MapControllers();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-DbInitializer.Seed(app);
+DbInitializer.Init(app);
 
 app.Run();
+
+public partial class Program { }

@@ -23,7 +23,7 @@ namespace OrdersApi.Controllers
             var order = await _orderService.GetOrder(orderId);
             if (order == null)
             {                
-                return NotFound(ApiResponseHelper.Failure<string>(Constants.MissingOrderError, new List<string> { Constants.MissingOrderErrorMessage }));
+                return NotFound(ApiResponseHelper.Failure<string>(Constants.MissingOrderError, new List<string> { string.Format(Constants.MissingOrderErrorMessage, orderId) }));
             }
             
             return Ok(ApiResponseHelper.Success(string.Empty, data: order));

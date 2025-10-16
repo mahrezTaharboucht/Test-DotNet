@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using OrdersApi.Common;
 using OrdersApi.Controllers;
 using OrdersApi.Dtos;
 using OrdersApi.Dtos.Orders;
@@ -8,6 +7,7 @@ using OrdersApi.Interfaces.Services;
 
 namespace OrdersApi.UnitTests.Controllers
 {
+    [Trait("Category", "Unit")]
     public class OrderControllerTests
     {
         private readonly Mock<IOrderService> _orderServiceMock;
@@ -57,6 +57,8 @@ namespace OrdersApi.UnitTests.Controllers
         {
             // Arrange
             var orderId = 999;
+            var expectedMessage = "Order not found.";
+            var expectedErrorMessage = "The order 999 not found.";
             _orderServiceMock.Setup(x => x.GetOrder(orderId)).ReturnsAsync((OrderDetailResponseDto)null);
 
             // Act
@@ -66,8 +68,8 @@ namespace OrdersApi.UnitTests.Controllers
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             var response = Assert.IsType<ApiResponse<string>>(notFoundResult.Value);
             Assert.False(response.Success);
-            Assert.Equal(Constants.MissingOrderError, response.Message);
-            Assert.Contains(Constants.MissingOrderErrorMessage, response.Errors);            
+            Assert.Equal(expectedMessage, response.Message);
+            Assert.Contains(expectedErrorMessage, response.Errors);            
         }
 
         [Fact]

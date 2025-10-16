@@ -1,4 +1,6 @@
-﻿using OrdersApi.Dtos.Orders;
+﻿using Microsoft.EntityFrameworkCore;
+using OrdersApi.Common;
+using OrdersApi.Dtos.Orders;
 using OrdersApi.Entities;
 using OrdersApi.Interfaces.Mappers;
 using OrdersApi.Interfaces.Repositories;
@@ -9,9 +11,7 @@ namespace OrdersApi.Services
 {
     /// <inheritdoc/>
     public class OrderService : IOrderService
-    {
-        private const string InvalidOrderIdErrorMessage = "The order Id should be greater than 0.";
-        private const string ExistingOrderIdErrorMessage = "The order already exist.";
+    {        
         private readonly IRepository<Order> _orderRepository;
         private readonly IBinWidthCalculator _widthCalculator;
         private readonly IOrderMapper _orderMapper;
@@ -37,12 +37,12 @@ namespace OrdersApi.Services
         {
             if (orderId <= 0)
             {
-                throw new ValidationException(InvalidOrderIdErrorMessage);
+                throw new ValidationException(Constants.InvalidOrderIdErrorMessage);
             }
 
             if (await _orderRepository.Exists(orderId))
             {
-                throw new ValidationException(ExistingOrderIdErrorMessage);
+                throw new ValidationException(Constants.ExistingOrderIdErrorMessage);
             }
 
             var order = _orderMapper.ToOrderEntity(dto);
@@ -56,7 +56,7 @@ namespace OrdersApi.Services
         /// <inheritdoc/>
         public async Task<OrderDetailResponseDto> GetOrder(int orderId)
         {
-            var order = await _orderRepository.GetByIdAsync(orderId);
+            var order = await _orderRepository.GetAsync(q => q.Include(e => e.Items).Where(e => e.Id == orderId));
             return _orderMapper.ToOrderDetailResponseDto(order);
         }
     }

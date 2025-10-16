@@ -22,6 +22,13 @@ namespace OrdersApi.Interfaces.Repositories
         Task<T> GetByIdAsync(int id);
 
         /// <summary>
+        /// Get entity using custom query.
+        /// </summary>
+        /// <param name="query">Custom query.</param>
+        /// <returns><Entity instance./returns>
+        Task<T> GetAsync(Func<IQueryable<T>, IQueryable<T>> query);
+
+        /// <summary>
         /// Add an entity.
         /// </summary>
         /// <param name="entity">Entity to add.</param>
@@ -42,6 +49,9 @@ namespace OrdersApi.Interfaces.Repositories
         /// <param name="predicate">Predicate.</param>
         /// <returns>Entity or null.</returns>
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
+
+
+        
 
         /// <summary>
         /// Save changes in Db.

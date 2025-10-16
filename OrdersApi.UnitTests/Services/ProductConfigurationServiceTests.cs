@@ -8,6 +8,7 @@ using OrdersApi.Services;
 
 namespace OrdersApi.UnitTests.Services
 {
+    [Trait("Category", "Unit")]
     public class ProductConfigurationServiceTests : IDisposable
     {
         private const string CacheKey = "ProductConfigurations";

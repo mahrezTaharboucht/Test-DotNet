@@ -4,6 +4,7 @@ using OrdersApi.UnitTests.Mocks;
 
 namespace OrdersApi.UnitTests.Services
 {
+    [Trait("Category", "Unit")]
     public class BinWidthCalculatorTests
     {
         private const string PhotoBook = "photoBook";

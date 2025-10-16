@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OrdersApi.Dtos;
+using OrdersApi.Common;
+using OrdersApi.Helpers;
 
 namespace OrdersApi.Filters
 {
@@ -37,13 +38,7 @@ namespace OrdersApi.Filters
 
                     if (!result.IsValid)
                     {
-                        context.Result = new BadRequestObjectResult(
-                            new ApiResponse<string>()
-                            {
-                                Success = false,
-                                Message = "Validation error",
-                                Errors = result.Errors.Select(e => e.ErrorMessage)
-                            });
+                        context.Result = new BadRequestObjectResult(ApiResponseHelper.Failure<string>(Constants.ValidationExceptionMessage, result.Errors.Select(e => e.ErrorMessage)));
                         return;
                     }
                 }
