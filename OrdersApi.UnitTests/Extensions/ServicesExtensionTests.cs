@@ -12,10 +12,10 @@ using OrdersApi.Infrastructure.Data;
 using OrdersApi.Interfaces.Mappers;
 using OrdersApi.Interfaces.Repositories;
 using OrdersApi.Interfaces.Services;
-using OrdersApi.Validators;
 
 namespace OrdersApi.UnitTests.Extensions
 {
+    [Trait("Category", "Unit")]
     public class ServicesExtensionTests
     {
         private const string DbName = "TestDb";

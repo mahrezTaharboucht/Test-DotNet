@@ -7,6 +7,7 @@ using OrdersApi.Interfaces.Services;
 
 namespace OrdersApi.UnitTests.Controllers
 {
+    [Trait("Category", "Unit")]
     public class ProductConfigurationControllerTests
     {
         private readonly Mock<IProductConfigurationService> _serviceMock;

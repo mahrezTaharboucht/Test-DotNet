@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 
 namespace OrdersApi.UnitTests.Validators
 {
+    [Trait("Category", "Unit")]
     public class CreateOrderItemDtoValidatorTests
     {
         private const string ProductType = "Mug";

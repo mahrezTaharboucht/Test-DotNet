@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrdersApi.UnitTests.Services
 {
+    [Trait("Category", "Unit")]
     public class OrderServiceTests
     {
         private readonly Mock<IRepository<Order>> _orderRepositoryMock;

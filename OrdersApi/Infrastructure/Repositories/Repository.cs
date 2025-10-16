@@ -40,6 +40,13 @@ namespace OrdersApi.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<T> GetAsync(Func<IQueryable<T>, IQueryable<T>> query)
+        {
+            var q = query(DbSet.AsQueryable());
+            return await q.FirstOrDefaultAsync();
+        }
+
+        /// <inheritdoc/>
         public async Task<bool> Exists(int id)
         {
             var entity = await GetByIdAsync(id);
@@ -56,6 +63,6 @@ namespace OrdersApi.Infrastructure.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             return await OrdersApiDbContext.SaveChangesAsync() > 0;
-        }
+        }       
     }
 }

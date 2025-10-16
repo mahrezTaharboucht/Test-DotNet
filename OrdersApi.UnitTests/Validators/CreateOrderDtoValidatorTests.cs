@@ -7,6 +7,7 @@ using OrdersApi.Validators;
 using System.Linq.Expressions;
 namespace OrdersApi.UnitTests.Validators
 {
+    [Trait("Category", "Unit")]
     public class CreateOrderDtoValidatorTests
     {
         private const string ProductType = "Cards";

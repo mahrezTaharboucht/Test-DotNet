@@ -5,6 +5,7 @@ using OrdersApi.Mappers;
 
 namespace OrdersApi.UnitTests.Mappers
 {
+    [Trait("Category", "Unit")]
     public class ProductConfigurationMapperTests
     {
         private readonly IProductConfigurationMapper _mapper = new ProductConfigurationMapper();

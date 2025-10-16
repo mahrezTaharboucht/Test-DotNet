@@ -1,5 +1,6 @@
 ﻿namespace OrdersApi.UnitTests.Infrastructure.Data
 {
+    [Trait("Category", "Unit")]
     public class EfCoreDbContextTests
     {
 

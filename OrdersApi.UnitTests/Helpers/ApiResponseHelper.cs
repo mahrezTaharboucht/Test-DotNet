@@ -1,8 +1,8 @@
 ﻿using OrdersApi.Helpers;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OrdersApi.UnitTests.Helpers
 {
+    [Trait("Category", "Unit")]
     public class ApiResponseHelperTests
     {
         [Fact]

@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 
 namespace OrdersApi.UnitTests.Validators
 {
+    [Trait("Category", "Unit")]
     public class CreateProductConfigurationDtoValidatorTests
     {
         private readonly Mock<IRepository<ProductConfiguration>> _mockProductConfigRepository;
@@ -35,6 +36,25 @@ namespace OrdersApi.UnitTests.Validators
             {
                 ProductType = productType,
                 Width = 10,
+                NumberOfItemsInStack = 5
+            };
+
+            // Act
+            var result = await _validator.TestValidateAsync(model);
+
+            // Assert
+            Assert.Contains(expectedError, result.Errors.First().ErrorMessage);
+        }
+
+        [Fact]
+        public async Task TestValidateAsync_WhenProductTypeIsEmpty_ShouldReturnValidationError()
+        {
+            // Arrange
+            const string expectedError = "Product type should be provided.";
+            var model = new CreateProductConfigurationDto
+            {
+                ProductType = "",
+                Width = 1,
                 NumberOfItemsInStack = 5
             };
 

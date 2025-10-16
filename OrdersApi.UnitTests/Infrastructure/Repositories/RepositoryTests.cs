@@ -1,12 +1,14 @@
-﻿using OrdersApi.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OrdersApi.Entities;
 using OrdersApi.Infrastructure.Repositories;
 
 namespace OrdersApi.UnitTests.Infrastructure.Repositories
 {
+    [Trait("Category", "Unit")]
     public class RepositoryTests
     {
         [Fact]
-        public async Task AddAsync_WhenCalled_ShouldSucceed()
+        public async Task AddAsync_WhenCalled_ShouldReturnOrder()
         {
             // Arrange
             const int orderId = 1;
@@ -49,7 +51,7 @@ namespace OrdersApi.UnitTests.Infrastructure.Repositories
         }
 
         [Fact]
-        public async Task GetAllAsync_WhenCalled_ShouldSucceed()
+        public async Task GetAllAsync_WhenCalled_ShouldReturnAllOrders()
         {
             // Arrange
             const int expectedCount = 2;     
@@ -75,6 +77,46 @@ namespace OrdersApi.UnitTests.Infrastructure.Repositories
 
             // Assert
             Assert.Equal(expectedCount, allOrders.Count());            
+        }
+
+        [Fact]
+        public async Task GetAsync_WhenCalled_ShouldReturnOrder()
+        {
+            // Arrange            
+            const int id = 10;
+            const decimal binWidth = 14m;
+            const string productType = "photo";
+            const int productQuantity = 3;
+            using var dbContext = InfrastructureTestsHelper.GetDbContext();
+            var orderRepository = new Repository<Order>(dbContext);
+            await orderRepository.AddAsync(new Order
+            {
+                Id = id,
+                RequiredBinWidth = binWidth,
+                Items = new List<OrderItem>
+                {
+                    new OrderItem
+                    {
+                        ProductType = productType,
+                        Quantity = productQuantity
+                    }
+                }
+            });    
+            await orderRepository.SaveChangesAsync();
+
+            // Act
+            var order = await orderRepository.GetAsync(q => q.Include(e => e.Items).Where(e => e.Id == id));
+            var orderItem = order?.Items.FirstOrDefault();
+
+            // Assert
+            Assert.Multiple(
+                () => Assert.NotNull(order),
+                () => Assert.NotNull(orderItem),
+                () => Assert.Equal(id, order.Id),
+                () => Assert.Equal(binWidth, order.RequiredBinWidth),
+                () => Assert.Single(order.Items),
+                () => Assert.Equal(productType, orderItem.ProductType),
+                () => Assert.Equal(productQuantity, orderItem.Quantity));
         }
     }   
 }
