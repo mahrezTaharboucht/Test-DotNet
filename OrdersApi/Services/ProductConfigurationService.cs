@@ -4,6 +4,7 @@ using OrdersApi.Entities;
 using OrdersApi.Interfaces.Mappers;
 using OrdersApi.Interfaces.Repositories;
 using OrdersApi.Interfaces.Services;
+using System.Xml;
 
 namespace OrdersApi.Services
 {
@@ -34,12 +35,13 @@ namespace OrdersApi.Services
         }
 
         /// <inheritdoc/>
-        public async Task CreateProductConfiguration(CreateProductConfigurationDto productConfiguration)
+        public async Task<ProductConfigurationDetailResponseDto> CreateProductConfiguration(CreateProductConfigurationDto productConfiguration)
         {
             var entity = _productConfigurationMapper.ToProductConfiguration(productConfiguration);
             await _productConfigurationRepository.AddAsync(entity);
             await _productConfigurationRepository.SaveChangesAsync();
             _cache.Remove(CacheKey);
+            return _productConfigurationMapper.ToProductConfigurationDetailResponseDto(entity);
         }
 
         /// <inheritdoc/>
