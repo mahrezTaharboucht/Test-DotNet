@@ -34,7 +34,7 @@ namespace OrdersApi.Tests
             var response = await _client.PutAsJsonAsync($"/order/{orderId}", createDto);
 
             // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);                        
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);                        
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<CreateOrderResponseDto>>();
             Assert.NotNull(result);           
             Assert.NotNull(result.Data);
@@ -45,7 +45,7 @@ namespace OrdersApi.Tests
         }
 
         [Fact]
-        public async Task Create_WhenOrderExist_ShouldReturnBadRequest()
+        public async Task Create_WhenOrderExist_ShouldReturnConflict()
         {
             // Arrange
             var orderId = 2;
@@ -59,7 +59,7 @@ namespace OrdersApi.Tests
             var response = await _client.PutAsJsonAsync($"/order/{orderId}", createDto);
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<string>>();
             Assert.NotNull(result);
             Assert.Contains(expectedError, result.Errors);
@@ -175,7 +175,7 @@ namespace OrdersApi.Tests
         {
             // Arrange
             var orderId = 6;
-            var expectedOrderErrorMessage = "The order 6 not found.";
+            var expectedOrderErrorMessage = "The order 6 was not found.";
             var expectedOrderError = "Order not found.";
 
             // Act

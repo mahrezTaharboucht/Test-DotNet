@@ -2,6 +2,7 @@
 using OrdersApi.Common;
 using OrdersApi.Dtos.Orders;
 using OrdersApi.Entities;
+using OrdersApi.Exceptions;
 using OrdersApi.Interfaces.Mappers;
 using OrdersApi.Interfaces.Repositories;
 using OrdersApi.Interfaces.Services;
@@ -42,7 +43,7 @@ namespace OrdersApi.Services
 
             if (await _orderRepository.Exists(orderId))
             {
-                throw new ValidationException(Constants.ExistingOrderIdErrorMessage);
+                throw new ConflictException(Constants.ExistingOrderIdErrorMessage);
             }
 
             var order = _orderMapper.ToOrderEntity(dto);

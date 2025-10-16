@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using OrdersApi.Common;
 using OrdersApi.Dtos.ProductConfigurations;
 using OrdersApi.Entities;
+using OrdersApi.Exceptions;
+using OrdersApi.Infrastructure.Repositories;
 using OrdersApi.Interfaces.Mappers;
 using OrdersApi.Interfaces.Repositories;
 using OrdersApi.Interfaces.Services;
@@ -37,6 +40,14 @@ namespace OrdersApi.Services
         /// <inheritdoc/>
         public async Task<ProductConfigurationDetailResponseDto> CreateProductConfiguration(CreateProductConfigurationDto productConfiguration)
         {
+            var entityFromDb = await _productConfigurationRepository
+                   .FirstOrDefaultAsync(e => e.ProductType.ToLower() == productConfiguration.ProductType.Trim().ToLower());
+           
+            if (entityFromDb != null)
+            {
+                throw new ConflictException(Constants.InvalidItemProductTypeErrorMessage);
+            }
+
             var entity = _productConfigurationMapper.ToProductConfiguration(productConfiguration);
             await _productConfigurationRepository.AddAsync(entity);
             await _productConfigurationRepository.SaveChangesAsync();

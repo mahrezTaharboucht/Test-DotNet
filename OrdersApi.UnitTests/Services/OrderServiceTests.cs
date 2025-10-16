@@ -1,6 +1,7 @@
 ﻿using Moq;
 using OrdersApi.Dtos.Orders;
 using OrdersApi.Entities;
+using OrdersApi.Exceptions;
 using OrdersApi.Interfaces.Mappers;
 using OrdersApi.Interfaces.Repositories;
 using OrdersApi.Interfaces.Services;
@@ -85,7 +86,7 @@ namespace OrdersApi.UnitTests.Services
             var act = async () => await _orderService.CreateOrder(orderId, dto);
 
             // Assert
-            var ex = await Assert.ThrowsAsync<ValidationException>(() => act());
+            var ex = await Assert.ThrowsAsync<ConflictException>(() => act());
             Assert.Equal(expectedErrorMessage, ex.Message);
         }
 

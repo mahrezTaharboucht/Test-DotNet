@@ -73,8 +73,8 @@ namespace OrdersApi.UnitTests.Controllers
             var result = await _productConfigurationService.Create(dto);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var apiResponse = Assert.IsType<ApiResponse<ProductConfigurationDetailResponseDto>>(okResult.Value);
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+            var apiResponse = Assert.IsType<ApiResponse<ProductConfigurationDetailResponseDto>>(createdResult.Value);
             Assert.True(apiResponse.Success);
             Assert.Equal(id, apiResponse.Data.Id);
             Assert.Equal(productType, apiResponse.Data.ProductType);

@@ -1,4 +1,5 @@
 ﻿using OrdersApi.Common;
+using OrdersApi.Exceptions;
 using OrdersApi.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
@@ -24,6 +25,11 @@ namespace OrdersApi.Middleware
             try
             {
                 await _next(context);
+            }
+            catch (ConflictException ex)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Conflict;
+                await context.Response.WriteAsJsonAsync(ApiResponseHelper.Failure<string>(Constants.ConflicExceptionMessage, new List<string> { ex.Message }));
             }
             catch (ValidationException ex)
             {

@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using OrdersApi.Common;
 using OrdersApi.Dtos.ProductConfigurations;
-using OrdersApi.Entities;
-using OrdersApi.Interfaces.Repositories;
 
 namespace OrdersApi.Validators
 {
@@ -11,17 +9,10 @@ namespace OrdersApi.Validators
     /// </summary>
     public class CreateProductConfigurationDtoValidator : AbstractValidator<CreateProductConfigurationDto>
     {       
-        public CreateProductConfigurationDtoValidator(IRepository<ProductConfiguration> productConfigurationRepository)
+        public CreateProductConfigurationDtoValidator()
         {
             RuleFor(p => p.ProductType)
-               .NotEmpty().WithMessage(Constants.EmptyProductTypeErrorMessage)
-               .MustAsync(async (productType, ct) =>
-               {
-                   var entity = await productConfigurationRepository
-                   .FirstOrDefaultAsync(e => e.ProductType.ToLower() == productType.Trim().ToLower());
-                   return (entity == null);
-               }).WithMessage(Constants.InvalidItemProductTypeErrorMessage)
-               ;
+               .NotEmpty().WithMessage(Constants.EmptyProductTypeErrorMessage);
 
             RuleFor(p => p.Width)
                 .GreaterThan(0).WithMessage(Constants.InvalidWidthErrorMessage);
