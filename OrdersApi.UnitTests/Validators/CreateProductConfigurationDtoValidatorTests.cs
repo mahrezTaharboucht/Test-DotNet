@@ -19,31 +19,7 @@ namespace OrdersApi.UnitTests.Validators
             _mockProductConfigRepository
                 .Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<ProductConfiguration, bool>>>()))
                 .ReturnsAsync((ProductConfiguration)null);
-            _validator = new CreateProductConfigurationDtoValidator(_mockProductConfigRepository.Object);
-        }
-
-        [Fact]
-        public async Task TestValidateAsync_WhenProductTypeAlreadyExist_ShouldReturnValidationError()
-        {
-            // Arrange
-            const string productType = "Mug";
-            const string expectedError = "The given product type value already exists.";
-            _mockProductConfigRepository
-                .Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<ProductConfiguration, bool>>>()))
-                .ReturnsAsync(new ProductConfiguration { ProductType = productType });
-
-            var model = new CreateProductConfigurationDto
-            {
-                ProductType = productType,
-                Width = 10,
-                NumberOfItemsInStack = 5
-            };
-
-            // Act
-            var result = await _validator.TestValidateAsync(model);
-
-            // Assert
-            Assert.Contains(expectedError, result.Errors.First().ErrorMessage);
+            _validator = new CreateProductConfigurationDtoValidator();
         }
 
         [Fact]

@@ -58,7 +58,7 @@ namespace OrdersApi.UnitTests.Controllers
             // Arrange
             var orderId = 999;
             var expectedMessage = "Order not found.";
-            var expectedErrorMessage = "The order 999 not found.";
+            var expectedErrorMessage = "The order 999 was not found.";
             _orderServiceMock.Setup(x => x.GetOrder(orderId)).ReturnsAsync((OrderDetailResponseDto)null);
 
             // Act
@@ -86,8 +86,8 @@ namespace OrdersApi.UnitTests.Controllers
             var result = await _orderController.Create(orderId, dto);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var apiResponse = Assert.IsType<ApiResponse<CreateOrderResponseDto>>(okResult.Value);
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+            var apiResponse = Assert.IsType<ApiResponse<CreateOrderResponseDto>>(createdResult.Value);
             Assert.True(apiResponse.Success);
             Assert.Equal(requiredBinWidth, apiResponse.Data.RequiredBinWidth);
         }

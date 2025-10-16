@@ -6,7 +6,8 @@
         public const string ExceptionMiddleware = "Exception middleware";
         public const string GlobalExceptionMessage = "Internal service error.";
         public const string ValidationExceptionMessage = "Validation error.";
-        public const string MissingOrderErrorMessage = "The order {0} not found.";
+        public const string ConflicExceptionMessage = "Validation error.";
+        public const string MissingOrderErrorMessage = "The order {0} was not found.";
         public const string MissingOrderError = "Order not found.";
         public const string InvalidOrderIdErrorMessage = "The order Id should be greater than 0.";
         public const string ExistingOrderIdErrorMessage = "The order already exist.";

@@ -74,7 +74,7 @@ namespace OrdersApi.Tests
         }
 
         [Fact]
-        public async Task Create_WhenProductTypeExist_ShouldReturnBadRequest()
+        public async Task Create_WhenProductTypeExist_ShouldReturnConflict()
         {
             // Arrange
             var expectedError = "The given product type value already exists.";
@@ -84,7 +84,7 @@ namespace OrdersApi.Tests
             var response = await _client.PostAsJsonAsync($"/productConfiguration", createDto);
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<string>>();
             Assert.NotNull(result);
             Assert.Contains(expectedError, result.Errors);
@@ -122,7 +122,7 @@ namespace OrdersApi.Tests
             var response = await _client.PostAsJsonAsync($"/productConfiguration", createDto);
 
             // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<ProductConfigurationDetailResponseDto>>();
             Assert.NotNull(result);
             Assert.NotNull(result.Data);

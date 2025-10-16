@@ -27,7 +27,8 @@ namespace OrdersApi.Controllers
         public async Task<IActionResult> Create(CreateProductConfigurationDto createDto)
         {
             var productConfiguration = await _productConfigurationService.CreateProductConfiguration(createDto);
-            return Ok(ApiResponseHelper.Success(string.Empty, productConfiguration));
+            var dto = ApiResponseHelper.Success(string.Empty, productConfiguration);
+            return CreatedAtAction(nameof(GetAll), new {}, dto);
         }
     }
 }
