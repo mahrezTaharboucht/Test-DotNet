@@ -12,7 +12,7 @@ namespace OrdersApi.Services
         /// </summary>
         public BinWidthCalculator(IProductConfigurationService productConfigurationService) 
         {
-            ArgumentNullException.ThrowIfNull(productConfigurationService);           
+            ArgumentNullException.ThrowIfNull(productConfigurationService, nameof(productConfigurationService));           
             _productConfigurationService = productConfigurationService;
         }
 

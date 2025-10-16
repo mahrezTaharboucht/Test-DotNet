@@ -49,7 +49,7 @@ namespace OrdersApi.UnitTests.Mocks
             }
         };
       
-        public Task CreateProductConfiguration(CreateProductConfigurationDto productConfiguration)
+        public Task<ProductConfigurationDetailResponseDto> CreateProductConfiguration(CreateProductConfigurationDto productConfiguration)
         {
             throw new NotImplementedException();
         }               

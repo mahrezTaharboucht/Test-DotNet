@@ -10,7 +10,7 @@ namespace OrdersApi.Interfaces.Services
         /// <summary>
         /// Create a product configuration entity.
         /// </summary>       
-        Task CreateProductConfiguration(CreateProductConfigurationDto productConfiguration);
+        Task<ProductConfigurationDetailResponseDto> CreateProductConfiguration(CreateProductConfigurationDto productConfiguration);
         
         /// <summary>
         /// Get product configurations.
